@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     h = 0.1;
     xBegin = -3;
     xEnd = 3 + h;
-    ui->widget->xAxis->setRange(-4, 4);
-    ui->widget->yAxis->setRange(0, 9);
+    ui->plot_widget->xAxis->setRange(-4, 4);
+    ui->plot_widget->yAxis->setRange(0, 9);
 
     N = (xEnd - xBegin)/h + 2;
 
@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
         y.push_back(X*X);
     }
 
-    ui->widget->addGraph();
-    ui->widget->graph(0)->addData(x,y);
-    ui->widget->replot();
+    ui->plot_widget->addGraph();
+    ui->plot_widget->graph(0)->addData(x,y);
+    ui->plot_widget->replot();
 
 }
 
