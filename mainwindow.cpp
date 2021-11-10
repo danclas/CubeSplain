@@ -27,16 +27,19 @@ void MainWindow::on_point_table_itemChanged(QTableWidgetItem *item)
 
 void MainWindow::on_input_Btn_clicked()
 {
-    std::vector<double> x;
-    std::vector<double> y;
+    std::vector<std::pair<double, double>> x_y;
 
     for (int i = 0; i < ui->point_table->rowCount() - 1; i++ )
     {
         auto x_text = ui->point_table->item(i, 0)->text();
         auto y_text = ui->point_table->item(i, 1)->text();
 
-        if(x_text != "") { x.push_back(x_text.toDouble()); }
-        if(y_text != "") { y.push_back(y_text.toDouble()); }
+        if(x_text != "" && y_text != "")
+        {
+            std::pair<double, double> temp = std::make_pair(x_text.toDouble(),y_text.toDouble());
+            x_y.push_back(temp);
+        }
+
     }
 
 }
