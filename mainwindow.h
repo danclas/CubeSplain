@@ -23,6 +23,8 @@ private slots:
 
     void on_point_table_itemChanged(QTableWidgetItem *item);
 
+    void on_input_Btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
