@@ -16,7 +16,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_point_table_cellChanged(int row, int column);
+    //void on_point_table_cellChanged(int row, int column);
+
+    void on_point_table_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
 private:
     Ui::MainWindow *ui;
