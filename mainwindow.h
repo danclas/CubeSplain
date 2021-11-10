@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define MAX_POINTS 12
+
+
 #include <QMainWindow>
 #include <QTableWidgetItem>
 

@@ -19,8 +19,8 @@ void MainWindow::on_point_table_itemChanged(QTableWidgetItem *item)
 {
     int row_count = ui->point_table->rowCount();
 
-    if(item->row() == (row_count - 1) && row_count < 12 && item->text() != "")
+    if(item->row() == (row_count - 1) && row_count < MAX_POINTS && item->text() != "")
     {
-        ui->point_table->setRowCount(row_count + 1);
+        ui->point_table->insertRow(row_count);
     }
 }
