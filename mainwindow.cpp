@@ -27,8 +27,8 @@ void MainWindow::on_point_table_itemChanged(QTableWidgetItem *item)
 
 void MainWindow::on_input_Btn_clicked()
 {
-    QVector<double> x;
-    QVector<double> y;
+    std::vector<double> x;
+    std::vector<double> y;
 
     for (int i = 0; i < ui->point_table->rowCount() - 1; i++ )
     {
