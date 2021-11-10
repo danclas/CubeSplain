@@ -6,8 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //connect(ui->point_table, SIGNAL(cellChanged(int, int)), this, SLOT(on_point_table_cellChanged(int, int)));
-    connect(ui->point_table, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(on_point_table_currentCellChanged(int, int, int, int)));
+    connect(ui->point_table, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(on_point_table_itemChanged(QTableWidgetItem *)));
 }
 
 MainWindow::~MainWindow()
@@ -16,21 +15,11 @@ MainWindow::~MainWindow()
 }
 
 
-//void MainWindow::on_point_table_cellChanged(int row, int column)
-//{
-//    int row_count = ui->point_table->rowCount();
-
-//    if(row == (row_count - 1) && row_count < 12)
-//    {
-//        ui->point_table->setRowCount(row_count + 1);
-//    }
-//}
-
-void MainWindow::on_point_table_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+void MainWindow::on_point_table_itemChanged(QTableWidgetItem *item)
 {
     int row_count = ui->point_table->rowCount();
 
-    if(currentRow == (row_count - 1) && previousRow == (currentRow - 1) && row_count < 12)
+    if(item->row() == (row_count - 1) && row_count < 12 && item->text() != "")
     {
         ui->point_table->setRowCount(row_count + 1);
     }

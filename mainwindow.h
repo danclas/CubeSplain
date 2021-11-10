@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,9 +17,8 @@ public:
     ~MainWindow();
 
 private slots:
-    //void on_point_table_cellChanged(int row, int column);
 
-    void on_point_table_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+    void on_point_table_itemChanged(QTableWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
