@@ -33,7 +33,6 @@ void MainWindow::on_input_Btn_clicked()
     std::vector<std::pair<double, double>> x_y;
     QString x_text, y_text;
     int row_count;
-    double min_x, min_y, max_x, max_y;
 
     if(ui->point_table->rowCount() == 12) {row_count = 12;}
     else {row_count = ui->point_table->rowCount() - 1;}
@@ -66,25 +65,8 @@ void MainWindow::on_input_Btn_clicked()
 
         if(x_text != "" && y_text != "")
         {
-            double x = x_text.toDouble();
-            double y = y_text.toDouble();
 
-            if(i == 0)
-            {
-                max_x = x;
-                max_y = y;
-                min_x = x;
-                min_y = y;
-            }
-            else
-            {
-                if(max_x < x) {max_x = x;}
-                if(max_y < y) {max_y = y;}
-                if(min_x > x) {min_x = x;}
-                if(min_y > y) {min_y = y;}
-            }
-
-            std::pair<double, double> temp = std::make_pair(x,y);
+            std::pair<double, double> temp = std::make_pair(x_text.toDouble(),y_text.toDouble());
             x_y.push_back(temp);
         }
 
@@ -109,16 +91,14 @@ void MainWindow::on_input_Btn_clicked()
         systemOfCubicSplines systems(x_y);
         auto list = systems.getCubicSplineList();
 
-        ui->plot_widget->xAxis->setRange(min_x - STEP, max_x + STEP);
-        ui->plot_widget->yAxis->setRange(min_y - STEP, max_y + STEP);
-
+        double min_x, min_y, max_x, max_y;
 
 
         for(std::vector<cubicSpline>::iterator i = list.begin(); i != list.end(); i++)
         {
             ui->plot_widget->addGraph();
 
-            int x_start, x_finish;
+            double x_start, x_finish;
             if((*i).get_x1() < (*i).get_x2()){ x_start = (*i).get_x1(); x_finish = (*i).get_x2(); }
             else { x_start = (*i).get_x2(); x_finish = (*i).get_x1(); }
 
@@ -126,7 +106,14 @@ void MainWindow::on_input_Btn_clicked()
             {
 
                x_list.push_back(x);
-               y_list.push_back((*i).F(x));
+               double y = (*i).F(x);
+               y_list.push_back(y);
+
+
+               if(max_x < x) {max_x = x;}
+               if(max_y < y) {max_y = y;}
+               if(min_x > x) {min_x = x;}
+               if(min_y > y) {min_y = y;}
             }
                x_list.push_back(x_finish);
                y_list.push_back((*i).F(x_finish));
@@ -137,6 +124,8 @@ void MainWindow::on_input_Btn_clicked()
             x_list.clear();
             y_list.clear();
         }
+        ui->plot_widget->xAxis->setRange(min_x - STEP, max_x + STEP);
+        ui->plot_widget->yAxis->setRange(min_y - STEP, max_y + STEP);
         ui->plot_widget->replot();
     }
 
