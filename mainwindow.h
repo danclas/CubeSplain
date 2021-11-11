@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #define MAX_POINTS 12
+#define STEP 0.1
 
 
 #include <QMainWindow>

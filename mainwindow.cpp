@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->point_table, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(on_point_table_itemChanged(QTableWidgetItem *)));
+    ui->plot_widget->xAxis->setLabel("x");
+    ui->plot_widget->yAxis->setLabel("y");
 }
 
 MainWindow::~MainWindow()
@@ -92,9 +94,47 @@ void MainWindow::on_input_Btn_clicked()
     }
     else
     {
+        QVector<double> x_list;
+        QVector<double> y_list;
+        QVector<QColor> colors{QColor(0,0,0), QColor(0,255,0), QColor(0,0,255), QColor(255,0,0),
+                               QColor(255,165,0), QColor(128,0,128), QColor(231,84,128), QColor(105,149,130),
+                               QColor(0,0,0), QColor(0,0,255), QColor(255,0,0), QColor(0,255,0)};
+        ui->plot_widget->clearGraphs();
+
+        int k = 0;
+
         systemOfCubicSplines systems(x_y);
+        auto list = systems.getCubicSplineList();
+
+        ui->plot_widget->xAxis->setRange(min_x - STEP, max_x + STEP);
+        ui->plot_widget->yAxis->setRange(min_y - STEP, max_y + STEP);
 
 
+
+        for(std::vector<cubicSpline>::iterator i = list.begin(); i != list.end(); i++)
+        {
+            ui->plot_widget->addGraph();
+
+            int x_start, x_finish;
+            if((*i).get_x1() < (*i).get_x2()){ x_start = (*i).get_x1(); x_finish = (*i).get_x2(); }
+            else { x_start = (*i).get_x2(); x_finish = (*i).get_x1(); }
+
+            for (double x = x_start; x < x_finish; x += STEP)
+            {
+
+               x_list.push_back(x);
+               y_list.push_back((*i).F(x));
+            }
+               x_list.push_back(x_finish);
+               y_list.push_back((*i).F(x_finish));
+
+            ui->plot_widget->graph(k)->setPen(colors[k]);
+            ui->plot_widget->graph(k)->addData(x_list, y_list);
+            k++;
+            x_list.clear();
+            y_list.clear();
+        }
+        ui->plot_widget->replot();
     }
 
 }
