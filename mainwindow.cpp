@@ -32,10 +32,13 @@ void MainWindow::on_input_Btn_clicked()
 {
     std::vector<std::pair<double, double>> x_y;
     QString x_text, y_text;
+    int row_count;
     double min_x, min_y, max_x, max_y;
 
+    if(ui->point_table->rowCount() == 12) {row_count = 12;}
+    else {row_count = ui->point_table->rowCount() - 1;}
 
-    for (int i = 0; i < ui->point_table->rowCount() - 1; i++ )
+    for (int i = 0; i < row_count; i++ )
     {
 
 
