@@ -1,7 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define MAX_POINTS 12
+#define STEP 0.1
+
+
 #include <QMainWindow>
+#include <QTableWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +19,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+
+    void on_point_table_itemChanged(QTableWidgetItem *item);
+
+    void on_input_Btn_clicked();
+
+    void on_clear_Btn_clicked();
 
 private:
     Ui::MainWindow *ui;
