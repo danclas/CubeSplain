@@ -33,27 +33,23 @@ std::vector<double> systemOfCubicSplines::calc_c_list()
     // compiling var for calculate c_list
     for (int i = 1; i <= N - 2; i++)
     {
-        this->h_list.push_back(x_y[i].first - x_y[i - 1].first);
-        this->h_list.push_back(x_y[i + 1].first - x_y[i].first);
+        this->h_list.push_back(abs(x_y[i].first - x_y[i - 1].first));
+        double x2_x1 = x_y[i + 1].first - x_y[i].first;
 
         u.push_back(get_divided_difference(std::vector<int> { i, i + 1, i + 2 }) * 6);
 
-        c.push_back(this->h_list[i + 1] / (this->h_list[i] + this->h_list[i + 1]));
+        c.push_back(x2_x1 / (this->h_list[i] + x2_x1));
 
         b.push_back(2);
         if (i > 1)
         {
-            a.push_back(this->h_list[i] / (this->h_list[i] + this->h_list[i + 1]));
+            a.push_back(this->h_list[i] / (this->h_list[i] + x2_x1));
         }
 
     }
 
 
-    if (N == 2)
-    {
-        this->h_list.push_back(x_y[N - 1].first - x_y[N - 2].first); // for h[N-1]
-    }
-
+    this->h_list.push_back(x_y[N - 1].first - x_y[N - 2].first); // for h[N-1]
     this->h_list.push_back(x_y[N].first - x_y[N - 1].first); // for h[N]
 
     if (N != 2)
