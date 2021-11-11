@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CubicSplainPlot</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -77,6 +77,17 @@
         </property>
         <property name="text">
          <string>Построить кубический сплайн</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="clear_Btn">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Очистить таблицу</string>
         </property>
        </widget>
       </widget>

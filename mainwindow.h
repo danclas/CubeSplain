@@ -26,6 +26,8 @@ private slots:
 
     void on_input_Btn_clicked();
 
+    void on_clear_Btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
