@@ -16,7 +16,6 @@ private:
 	std::vector<double> c_list;
 
 	std::vector<double> calc_c_list();
-	std::vector<double> calc_c_list2();
 	std::vector<cubicSpline> fill_cubicSpline_list();
 
 	double get_divided_difference(std::vector<int> indexes);
