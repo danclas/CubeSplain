@@ -36,7 +36,7 @@ private:
     splainTable *splain_table;
 
 signals:
-    void signal();
+    void sendTable();
 
 };
 #endif // MAINWINDOW_H

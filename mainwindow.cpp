@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->plot_widget->xAxis->setLabel("x");
     ui->plot_widget->yAxis->setLabel("y");
     splain_table = new splainTable;
-    connect(this, &MainWindow::signal, splain_table, &splainTable::slot);
+    connect(this, &MainWindow::sendTable, splain_table, &splainTable::getTable);
 }
 
 MainWindow::~MainWindow()
@@ -142,6 +142,6 @@ void MainWindow::on_clear_Btn_clicked()
 void MainWindow::on_viewSplainTable_clicked()
 {
     splain_table->hide();
-    emit signal();
+    emit sendTable();
     splain_table->show();
 }
