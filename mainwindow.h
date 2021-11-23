@@ -7,6 +7,7 @@
 
 #include <QMainWindow>
 #include <QTableWidgetItem>
+#include <splaintable.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,7 +29,10 @@ private slots:
 
     void on_clear_Btn_clicked();
 
+    void on_viewSplainTable_clicked();
+
 private:
     Ui::MainWindow *ui;
+    splainTable splain_table;
 };
 #endif // MAINWINDOW_H

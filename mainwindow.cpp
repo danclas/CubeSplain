@@ -136,3 +136,8 @@ void MainWindow::on_clear_Btn_clicked()
     ui->point_table->clearContents();
     ui->point_table->setRowCount(1);
 }
+
+void MainWindow::on_viewSplainTable_clicked()
+{
+    splain_table.show();
+}
