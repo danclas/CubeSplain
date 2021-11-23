@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->point_table, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(on_point_table_itemChanged(QTableWidgetItem *)));
     ui->plot_widget->xAxis->setLabel("x");
     ui->plot_widget->yAxis->setLabel("y");
+    splain_table = new splainTable;
+    connect(this, &MainWindow::signal, splain_table, &splainTable::slot);
 }
 
 MainWindow::~MainWindow()
@@ -139,5 +141,7 @@ void MainWindow::on_clear_Btn_clicked()
 
 void MainWindow::on_viewSplainTable_clicked()
 {
-    splain_table.show();
+    splain_table->hide();
+    emit signal();
+    splain_table->show();
 }

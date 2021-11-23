@@ -12,3 +12,8 @@ splainTable::~splainTable()
 {
     delete ui;
 }
+
+void splainTable::slot()
+{
+    ui->tableWidget->setRowCount(2);
+}

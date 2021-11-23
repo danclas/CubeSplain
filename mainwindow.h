@@ -33,6 +33,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    splainTable splain_table;
+    splainTable *splain_table;
+
+signals:
+    void signal();
+
 };
 #endif // MAINWINDOW_H

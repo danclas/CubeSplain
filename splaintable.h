@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::splainTable *ui;
+
+public slots:
+    void slot();
 };
 
 #endif // SPLAINTABLE_H
