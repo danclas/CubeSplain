@@ -13,16 +13,19 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp \
+    splaintable.cpp \
     systemOfCubicSplines.cpp
 
 HEADERS += \
     cubicSpline.h \
     mainwindow.h \
     qcustomplot.h \
+    splaintable.h \
     systemOfCubicSplines.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    splaintable.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
