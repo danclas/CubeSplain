@@ -23,7 +23,9 @@ private:
 
 public:
 	systemOfCubicSplines(std::vector<std::pair<double, double>> input);
+    systemOfCubicSplines(){ N = 0; }
 	std::vector<cubicSpline> getCubicSplineList() { return list; }
+    int get_N(){ return N; }
 };
 
 #endif // SYSTEMOFCUBICSPLINES_H
