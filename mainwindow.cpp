@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "systemOfCubicSplines.h"
 
+systemOfCubicSplines global_cubic_slines;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -91,6 +93,7 @@ void MainWindow::on_input_Btn_clicked()
         int k = 0;
 
         systemOfCubicSplines systems(x_y);
+        global_cubic_slines = systems;
         auto list = systems.getCubicSplineList();
 
         double min_x, min_y, max_x, max_y;
@@ -141,7 +144,11 @@ void MainWindow::on_clear_Btn_clicked()
 
 void MainWindow::on_viewSplainTable_clicked()
 {
-    splain_table->hide();
-    emit sendTable();
-    splain_table->show();
+    if (global_cubic_slines.get_N() != 0)
+    {
+        splain_table->hide();
+        emit sendTable();
+        splain_table->show();
+    }
+
 }
