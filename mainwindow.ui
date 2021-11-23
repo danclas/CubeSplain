@@ -90,6 +90,11 @@
          <string>Очистить таблицу</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="viewSplainTable">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
