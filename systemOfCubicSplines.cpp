@@ -10,61 +10,6 @@ systemOfCubicSplines::systemOfCubicSplines(std::vector<std::pair<double, double>
     list = fill_cubicSpline_list();
 }
 
-std::vector<double> systemOfCubicSplines::calc_c_list()
-
-{
-    std::vector<double> u; // for CalcUnknown
-    std::vector<double> a; // for CalcUnknown
-    std::vector<double> c; // for CalcUnknown
-    std::vector<double> b; // for CalcUnknown
-
-    this->h_list.push_back(0); // for h[0]
-
-    u.push_back(0); // for u[0]
-    u.push_back(get_divided_difference(std::vector<int>{ 0, 1, 2 }) * 6); // for u[1]
-
-    a.push_back(0); // for a[0]
-    a.push_back(0); // for a[1]
-
-    c.push_back(0); // for c[0]
-
-    b.push_back(0); // for b[0]
-
-    // compiling var for calculate c_list
-    for (int i = 1; i <= N - 2; i++)
-    {
-        this->h_list.push_back(abs(x_y[i].first - x_y[i - 1].first));
-        double x2_x1 = x_y[i + 1].first - x_y[i].first;
-
-        u.push_back(get_divided_difference(std::vector<int> { i, i + 1, i + 2 }) * 6);
-
-        c.push_back(x2_x1 / (this->h_list[i] + x2_x1));
-
-        b.push_back(2);
-        if (i > 1)
-        {
-            a.push_back(this->h_list[i] / (this->h_list[i] + x2_x1));
-        }
-
-    }
-
-
-    this->h_list.push_back(x_y[N - 1].first - x_y[N - 2].first); // for h[N-1]
-    this->h_list.push_back(x_y[N].first - x_y[N - 1].first); // for h[N]
-
-    if (N != 2)
-    {
-        a.push_back(this->h_list[N - 1] / (this->h_list[N - 1] + this->h_list[N])); // for a[N]
-    }
-
-    c.push_back(this->h_list[N] / (this->h_list[N - 1] + this->h_list[N])); // for c[N-1]
-
-    b.push_back(2); // for b[N-1]
-    b.push_back(2); // for b[N]
-
-    return CalcUnknown(a, b, c, u);
-}
-
 double systemOfCubicSplines::get_divided_difference(std::vector<int> indexes)
 {
     std::vector<int> left_indexes = indexes;
@@ -94,47 +39,46 @@ double systemOfCubicSplines::get_divided_difference(std::vector<int> indexes)
 }
 
 
-std::vector<double> systemOfCubicSplines::CalcUnknown(std::vector<double>& a, std::vector<double>& b, std::vector<double>& c, std::vector<double>& d)
+std::vector<double> systemOfCubicSplines::calc_c_list()
 {
-    std::vector<double> y;
+    double y = 0;
     std::vector<double> alph;
     std::vector<double> beta;
 
-    int N = d.size() - 1;
 
     //Задаём стартовые значения (i = 0)
-    y.push_back(0);   
     alph.push_back(0);
     beta.push_back(0);
+    this->h_list.push_back(0);
 
     //Задаём стартовые значения (i = 1)
-    y.push_back(b[1]);
-    alph.push_back(-c[1] / y[1]);
-    beta.push_back(d[1] / y[1]);
+    this->h_list.push_back(x_y[1].first - x_y[0].first);
+    this->h_list.push_back(x_y[2].first - x_y[1].first); // for i = 2
+    alph.push_back(3 * get_divided_difference(std::vector<int>{0, 1, 2}));
+    beta.push_back((-this->h_list[2] / (this->h_list[2] + this->h_list[1])) / 2); // (-h[2]/(h[2]+h[1]))/2
 
     for (int i = 2; i <= N - 1; i++)
     {
-        y.push_back(b[i] + a[i] * alph[i - 1]);
-        alph.push_back(-c[i] / y[i]);
-        beta.push_back((d[i] - a[i] * beta[i - 1]) / y[i]);
+        this->h_list.push_back(x_y[i + 1].first - x_y[i].first);
+        y = this->h_list[i] / (this->h_list[i] + this->h_list[i + 1]);
+        alph.push_back((6 * get_divided_difference(std::vector<int>{i - 1, i, i + 1}) - y * alph[i - 1]) / (2 + y * beta[i - 1]));
+        if (i == N - 1)
+        {
+            beta.push_back(0);
+        }
+        else
+        {
+            beta.push_back(-this->h_list[i + 1] / (2 * this->h_list[i + 1] + 2 * this->h_list[i] + this->h_list[i] * beta[i - 1]));
+        }
     }
 
-    //Задаём конечные значения
-    if (N > 0)
+    std::vector<double> x(N);
+
+    x[N-1] = alph[N-1];
+
+    for (int i = N - 2; i > 0; i--)
     {
-        y.push_back(b[N] + a[N] * alph[N - 1]);
-        beta.push_back((d[N] - a[N] * beta[N - 1]) / y[N]);
-    }
-
-    //N = beta.size() - 1;
-
-    std::vector<double> x(N + 1);
-
-    x[N] = beta[N];
-
-    for (int i = N - 1; i > 0; i--)
-    {
-        x[i] = alph[i] * x[i + 1] + beta[i];
+        x[i] = beta[i] * x[i + 1] + alph[i];
     }
 
     //std::reverse(x.begin(), x.end());
