@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "systemOfCubicSplines.h"
+
+systemOfCubicSplines global_cubic_slines;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->point_table, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(on_point_table_itemChanged(QTableWidgetItem *)));
     ui->plot_widget->xAxis->setLabel("x");
     ui->plot_widget->yAxis->setLabel("y");
+    splain_table = new splainTable;
+    connect(this, &MainWindow::sendTable, splain_table, &splainTable::getTable);
 }
 
 MainWindow::~MainWindow()
@@ -89,6 +92,7 @@ void MainWindow::on_input_Btn_clicked()
         int k = 0;
 
         systemOfCubicSplines systems(x_y);
+        global_cubic_slines = systems;
         auto list = systems.getCubicSplineList();
 
         double min_x, min_y, max_x, max_y;
@@ -128,6 +132,7 @@ void MainWindow::on_input_Btn_clicked()
         ui->plot_widget->yAxis->setRange(min_y - STEP, max_y + STEP);
         ui->plot_widget->replot();
     }
+    ui->viewSplainTable->setEnabled(true);
 
 }
 
@@ -135,4 +140,15 @@ void MainWindow::on_clear_Btn_clicked()
 {
     ui->point_table->clearContents();
     ui->point_table->setRowCount(1);
+}
+
+void MainWindow::on_viewSplainTable_clicked()
+{
+    if (global_cubic_slines.get_N() != 0)
+    {
+        splain_table->hide();
+        emit sendTable(global_cubic_slines);
+        splain_table->show();
+    }
+
 }

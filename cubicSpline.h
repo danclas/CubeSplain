@@ -18,6 +18,10 @@ public:
 	}
 	double get_x1() { return x1; }
 	double get_x2() { return x2; }
+    double get_a() { return a; }
+    double get_b() { return b; }
+    double get_c() { return c; }
+    double get_d() { return d; }
 };
 
 #endif // CUBICSPLINE_H
