@@ -91,6 +91,9 @@
         </property>
        </widget>
        <widget class="QPushButton" name="viewSplainTable">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>

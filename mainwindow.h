@@ -8,6 +8,7 @@
 #include <QMainWindow>
 #include <QTableWidgetItem>
 #include <splaintable.h>
+#include "systemOfCubicSplines.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,7 +37,7 @@ private:
     splainTable *splain_table;
 
 signals:
-    void sendTable();
+    void sendTable(systemOfCubicSplines);
 
 };
 #endif // MAINWINDOW_H

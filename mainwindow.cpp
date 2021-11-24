@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "systemOfCubicSplines.h"
 
 systemOfCubicSplines global_cubic_slines;
 
@@ -133,6 +132,7 @@ void MainWindow::on_input_Btn_clicked()
         ui->plot_widget->yAxis->setRange(min_y - STEP, max_y + STEP);
         ui->plot_widget->replot();
     }
+    ui->viewSplainTable->setEnabled(true);
 
 }
 
@@ -147,7 +147,7 @@ void MainWindow::on_viewSplainTable_clicked()
     if (global_cubic_slines.get_N() != 0)
     {
         splain_table->hide();
-        emit sendTable();
+        emit sendTable(global_cubic_slines);
         splain_table->show();
     }
 

@@ -2,6 +2,7 @@
 #define SPLAINTABLE_H
 
 #include <QWidget>
+#include "systemOfCubicSplines.h"
 
 namespace Ui {
 class splainTable;
@@ -19,7 +20,7 @@ private:
     Ui::splainTable *ui;
 
 public slots:
-    void getTable();
+    void getTable(systemOfCubicSplines system);
 };
 
 #endif // SPLAINTABLE_H

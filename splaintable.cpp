@@ -13,7 +13,7 @@ splainTable::~splainTable()
     delete ui;
 }
 
-void splainTable::getTable()
+void splainTable::getTable(systemOfCubicSplines system)
 {
-    ui->tableWidget->setRowCount(2);
+    ui->tableWidget->setRowCount(system.get_N());
 }
