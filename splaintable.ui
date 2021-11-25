@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
+    <width>679</width>
     <height>413</height>
    </rect>
   </property>
@@ -29,7 +29,7 @@
    <item row="0" column="1">
     <widget class="QTableWidget" name="tableWidget">
      <property name="columnCount">
-      <number>4</number>
+      <number>6</number>
      </property>
      <attribute name="horizontalHeaderCascadingSectionResizes">
       <bool>false</bool>
@@ -55,6 +55,16 @@
      <column>
       <property name="text">
        <string>d</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>x1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>x2</string>
       </property>
      </column>
     </widget>
