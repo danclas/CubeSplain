@@ -66,11 +66,20 @@ void MainWindow::on_input_Btn_clicked()
         }
 
 
+        QRegExp re("^[-+]?[0-9]*\\.?[0-9]+$"); //regexp for number
+
         if(x_text != "" && y_text != "")
         {
+            if(re.exactMatch(x_text) && re.exactMatch(y_text))
+            {
+                std::pair<double, double> temp = std::make_pair(x_text.toDouble(),y_text.toDouble());
+                x_y.push_back(temp);
+            }
+            else
+            {
+                QMessageBox::critical(0, "Ошибка", "Одно из введённых значений в паре не является числом!");
+            }
 
-            std::pair<double, double> temp = std::make_pair(x_text.toDouble(),y_text.toDouble());
-            x_y.push_back(temp);
         }
 
     }
@@ -151,5 +160,5 @@ void MainWindow::on_viewSplainTable_clicked()
         emit sendTable(global_cubic_slines);
         splain_table->show();
     }
-
 }
+
