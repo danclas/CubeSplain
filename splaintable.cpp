@@ -26,6 +26,8 @@ void splainTable::getTable(systemOfCubicSplines system)
          ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(list[i].get_b())));
          ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(list[i].get_c())));
          ui->tableWidget->setItem(i, 3, new QTableWidgetItem(QString::number(list[i].get_d())));
+         ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(list[i].get_x1())));
+         ui->tableWidget->setItem(i, 5, new QTableWidgetItem(QString::number(list[i].get_x2())));
     }
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers); //read-only items on table
 }
