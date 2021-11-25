@@ -140,6 +140,7 @@ void MainWindow::on_clear_Btn_clicked()
 {
     ui->point_table->clearContents();
     ui->point_table->setRowCount(1);
+    ui->viewSplainTable->setEnabled(false);
 }
 
 void MainWindow::on_viewSplainTable_clicked()
@@ -152,3 +153,4 @@ void MainWindow::on_viewSplainTable_clicked()
     }
 
 }
+
